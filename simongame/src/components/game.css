@@ -1,0 +1,89 @@
+
+.first2tiles{
+padding: 0;
+display: flex;
+flex-direction: row;
+margin: 50px;
+text-align: center;
+justify-content: center;
+}
+.last2tiles{
+padding: 0;
+display: flex;
+flex-direction: row;
+margin: 50px;
+text-align: center;
+justify-content: center;
+}
+.tile1{
+height: 100px;
+width: 100px;
+margin: 30px;
+background-color: green;
+border: 10px solid #1b1b2f;
+border-radius: 20%;
+}
+.tile2{
+    height: 100px;
+    width: 100px;
+    margin: 30px;
+    background-color: yellow;
+    border: 10px solid #1b1b2f;
+    border-radius: 20%;
+}
+.tile3{
+    height: 100px;
+    width: 100px;
+    margin: 30px;
+    background-color: red;
+    border: 10px solid #1b1b2f;
+    border-radius: 20%;
+}
+.tile4{
+    height: 100px;
+    width: 100px;
+    margin: 30px;
+    background-color: blue;
+    border: 10px solid #1b1b2f;
+    border-radius: 20%;
+}
+
+@keyframes highlight {
+    0% {
+        background: #ffff99; 
+    }
+    100% {
+        background: none;
+    }
+}
+
+.highlight {
+    animation: highlight 2s;
+}
+.tile1glow {
+    animation: highlight 0.5s;
+}
+.tile2glow {
+    animation: highlight 0.5s;
+}
+.tile3glow {
+    animation: highlight 0.5s;
+}
+.tile4glow {
+    animation: highlight 0.5s;
+}
+
+.button{
+    padding: 0;
+    /* margin: auto; */
+    margin-left: auto;
+    margin-right: auto;
+    height: 50px;
+    width: 60px;
+
+    text-align: center;
+    justify-content: center;
+    justify-items: center;
+    color: black;
+    background-color: rgb(151, 8, 151);
+}
