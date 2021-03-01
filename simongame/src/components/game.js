@@ -1,5 +1,7 @@
-import react , {useState} from 'react'
+import react , {useState , useSound} from 'react'
 import './game.css'
+import boopSfx from '../sounds/boop.mp3';
+
 const Game = (props)=>{
     // var audioElement = new Audio('car_horn.wav');
     const [gamestarted, setgamestarted] = useState(false);
@@ -129,17 +131,19 @@ const Game = (props)=>{
   
   return (
     <div  className="gamestyle" >
-        <p>Game Started -  <b>{String(gamestarted)}</b>.</p>
+        {/* <p>Game Started -  <b>{String(gamestarted)}</b>.</p> */}
+
         {/* <p>Current Tile Array -  {tilearray.map((n)=>{
             <p>n</p>
         })}</p>
         {tilearray.map((n)=>{
             <p>n</p>
         })} */}
-        <p>{tilearray}</p>
-        <p>msg- {msg}</p>
-        
-        {gamestarted ? <p>Level - {level}</p>:<p>Click on start to play the game</p>}
+        {/* <p>{tilearray}</p> */}
+       
+        {msg ?  <p>{msg}...Thanks for playing</p>:null}
+      
+        {gamestarted ? <p>Level - {level}</p>:null}
         
         <div className="first2tiles">
             <div className={className1}onClick={() => recoredresponse(1)}></div>
@@ -149,11 +153,12 @@ const Game = (props)=>{
             <div className={className3} onClick={() => recoredresponse(3)}></div>
             <div className={className4} onClick={() => recoredresponse(4)}></div>
         </div>
-        { prevscore ? <p>Previous Score - {prevscore} </p>:null}
-        { prevscore ? <p>Best Score - {bestscore} </p>:null}
+ 
         {!gamestarted ? <button className="button" onClick={changeGameStatus}>START</button>
         : <button className="button" onClick={changeGameStatus}>STOP</button>
     }
+           { prevscore ? <p>Previous Score - {prevscore} </p>:null}
+        { prevscore ? <p>Best Score - {bestscore} </p>:null}
      </div>
   )
 }
