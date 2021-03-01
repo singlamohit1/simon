@@ -1,14 +1,17 @@
-import react , {useState , useSound} from 'react'
+import react , {useState} from 'react'
+import useSound from 'use-sound';
 import './game.css'
-import boopSfx from '../sounds/boop.mp3';
+// import boopSfx from '../../buzzer.mp3';
+import boopSfx from '../../src/buzzer.mp3';
 
-const Game = (props)=>{
+const Game = ({dangerstate})=>{
+  const [play] = useSound(boopSfx);
     // var audioElement = new Audio('car_horn.wav');
     const [gamestarted, setgamestarted] = useState(false);
     const [level, setlevel] = useState(1);
     const [tilearray, settilearray] = useState([]);
     const [curindex, setcurindex] = useState(0);
-    const [dangerzone, setdangerzone] = useState(props.dangerzone);
+    const { dangerzone, setdangerzone } = dangerstate
     const [msg, setmsg] = useState("");
     const [applyglobal1, setapplyglobal1] = useState(false);
     const [applyglobal2, setapplyglobal2] = useState(false);
@@ -20,13 +23,13 @@ const Game = (props)=>{
 
     const changeGameStatus = ()=>  {
         setgamestarted(!gamestarted)
+        setdangerzone(false)
         if(!gamestarted)
         {
           // audioElement.play();
             const rn =  Math.floor(Math.random() * 4) + 1  ;
-            console.log('num gen is ',rn)
             settilearray(tilearray => [...tilearray, rn])
-            
+            play()
             switch (rn) {
                 case 1:
                     setapplyglobal1(true)
@@ -53,18 +56,15 @@ const Game = (props)=>{
             setapplyglobal2(false)
             setapplyglobal3(false)
             setapplyglobal4(false)
-            // setuserinputtilearray([]);
         }
 
     }
   
 
     const recoredresponse = (tile)=>  {
-
+        play()
         if(gamestarted)
         {
-            console.log('tile clicked ,',tile)
-
             if(tile==tilearray[curindex])
             {
                 setcurindex(index => index+1)
@@ -74,8 +74,8 @@ const Game = (props)=>{
                     setcurindex(0);
 
                     const rn =  Math.floor(Math.random() * 4) + 1  ;
-                    console.log('num gen is ',rn)
                     settilearray(tilearray => [...tilearray, rn])
+                    play()
                     switch (rn) {
                         case 1:
                             setapplyglobal1(true)
@@ -128,6 +128,7 @@ const Game = (props)=>{
   var className2 = !applyglobal2 ? "tile2" : ["tile2" , "tile2glow"].join(' ');
   var className3 = !applyglobal3 ? "tile3" : ["tile3" , "tile3glow"].join(' ');
   var className4 = !applyglobal4 ? "tile4" : ["tile4" , "tile4glow"].join(' ');
+  
   
   return (
     <div  className="gamestyle" >
