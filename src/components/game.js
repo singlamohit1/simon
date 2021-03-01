@@ -1,23 +1,20 @@
-import react , {useState} from 'react'
+import  {useState} from 'react'
 import useSound from 'use-sound';
 import './game.css'
-// import boopSfx from '../../buzzer.mp3';
 import boopSfx from '../../src/buzzer.mp3';
 
 const Game = ({dangerstate})=>{
   const [play] = useSound(boopSfx);
-    // var audioElement = new Audio('car_horn.wav');
     const [gamestarted, setgamestarted] = useState(false);
     const [level, setlevel] = useState(1);
     const [tilearray, settilearray] = useState([]);
     const [curindex, setcurindex] = useState(0);
-    const { dangerzone, setdangerzone } = dangerstate
+    const { setdangerzone } = dangerstate
     const [msg, setmsg] = useState("");
     const [applyglobal1, setapplyglobal1] = useState(false);
     const [applyglobal2, setapplyglobal2] = useState(false);
     const [applyglobal3, setapplyglobal3] = useState(false);
     const [applyglobal4, setapplyglobal4] = useState(false);
-    const [applyglobal, setapplyglobal] = useState(false);
     const [prevscore, setprevscore] = useState("");
     const [bestscore, setbestscore] = useState("");
 
@@ -43,6 +40,8 @@ const Game = ({dangerstate})=>{
                   case 4:
                     setapplyglobal4(true)
                   break;
+                  default :
+                  break;
 
               }
             
@@ -65,10 +64,10 @@ const Game = ({dangerstate})=>{
         play()
         if(gamestarted)
         {
-            if(tile==tilearray[curindex])
+            if(tile===tilearray[curindex])
             {
                 setcurindex(index => index+1)
-                if(curindex == tilearray.length-1)
+                if(curindex === tilearray.length-1)
                 {
                     setlevel(level => level+1)
                     setcurindex(0);
@@ -89,6 +88,8 @@ const Game = ({dangerstate})=>{
                           case 4:
                             setapplyglobal4(true)
                           break;
+                          default :
+                           break;
         
                       }
                 }

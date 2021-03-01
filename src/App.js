@@ -1,4 +1,4 @@
-import react , {useState} from 'react'
+import {useState} from 'react'
 import Header from './components/header'
 import Game from './components/game'
 import './App.css'
@@ -9,7 +9,7 @@ const App = ()=>{
   return (
     <div  className={className5}>
       <Header/>
-      <Game dangerstate={{ dangerzone: dangerzone, setdangerzone: setdangerzone }}/>
+      <Game dangerstate={{ setdangerzone: setdangerzone }}/>
     </div>
   )
 }
