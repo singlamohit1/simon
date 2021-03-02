@@ -9,7 +9,7 @@ const App = ()=>{
   return (
     <div  className={className5}>
       <Header/>
-      <Game dangerstate={{ dangerzone: dangerzone, setdangerzone: setdangerzone }}/>
+      <Game dangerstate={{ setdangerzone: setdangerzone }}/>
     </div>
   )
 }

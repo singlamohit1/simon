@@ -1,17 +1,15 @@
 import react , {useState} from 'react'
 import useSound from 'use-sound';
 import './game.css'
-// import boopSfx from '../../buzzer.mp3';
-import boopSfx from '../../src/buzzer.mp3';
+import sound from '../../src/buzzer.mp3';
 
 const Game = ({dangerstate})=>{
-  const [play] = useSound(boopSfx);
-    // var audioElement = new Audio('car_horn.wav');
+    const [play] = useSound(sound);
     const [gamestarted, setgamestarted] = useState(false);
     const [level, setlevel] = useState(1);
     const [tilearray, settilearray] = useState([]);
     const [curindex, setcurindex] = useState(0);
-    const { dangerzone, setdangerzone } = dangerstate
+    const {setdangerzone } = dangerstate
     const [msg, setmsg] = useState("");
     const [applyglobal1, setapplyglobal1] = useState(false);
     const [applyglobal2, setapplyglobal2] = useState(false);
@@ -26,7 +24,6 @@ const Game = ({dangerstate})=>{
         setdangerzone(false)
         if(!gamestarted)
         {
-          // audioElement.play();
             const rn =  Math.floor(Math.random() * 4) + 1  ;
             settilearray(tilearray => [...tilearray, rn])
             play()
@@ -74,6 +71,8 @@ const Game = ({dangerstate})=>{
                     setcurindex(0);
 
                     const rn =  Math.floor(Math.random() * 4) + 1  ;
+                    //
+                    // setTimeout(function(){ alert("Hello"); }, 5000);
                     settilearray(tilearray => [...tilearray, rn])
                     play()
                     switch (rn) {
@@ -103,13 +102,13 @@ const Game = ({dangerstate})=>{
             }
             else
             {
+                if(!bestscore ||(level>bestscore) )
+                setbestscore(level)
                 setlevel(1);
                 settilearray([]);
                 setcurindex(0)  
                 setprevscore(level)
                 setdangerzone(true)
-                if(bestscore && prevscore<bestscore)
-                setbestscore(level)
                 setgamestarted(false)
                 setmsg("game over")
                 setapplyglobal1(false)
@@ -129,21 +128,10 @@ const Game = ({dangerstate})=>{
   var className3 = !applyglobal3 ? "tile3" : ["tile3" , "tile3glow"].join(' ');
   var className4 = !applyglobal4 ? "tile4" : ["tile4" , "tile4glow"].join(' ');
   
-  
   return (
     <div  className="gamestyle" >
         {/* <p>Game Started -  <b>{String(gamestarted)}</b>.</p> */}
-
-        {/* <p>Current Tile Array -  {tilearray.map((n)=>{
-            <p>n</p>
-        })}</p>
-        {tilearray.map((n)=>{
-            <p>n</p>
-        })} */}
-        {/* <p>{tilearray}</p> */}
-       
         {msg ?  <p>{msg}...Thanks for playing</p>:null}
-      
         {gamestarted ? <p>Level - {level}</p>:null}
         
         <div className="first2tiles">
