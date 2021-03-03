@@ -11,13 +11,30 @@ const Game = ({dangerstate})=>{
     const [tilearray, settilearray] = useState([]);
     const [curindex, setcurindex] = useState(0);
     const { setdangerzone } = dangerstate
-   const [msg, setmsg] = useState("");
-    const [applyglobal1, setapplyglobal1] = useState(false);
-    const [applyglobal2, setapplyglobal2] = useState(false);
-    const [applyglobal3, setapplyglobal3] = useState(false);
-    const [applyglobal4, setapplyglobal4] = useState(false);
+    const [msg, setmsg] = useState("");
+    const [applyglobal , setapplyglobal] = useState([false , false ,false ,false])
     const [prevscore, setprevscore] = useState("");
     const [bestscore, setbestscore] = useState("");
+
+    const makeTileGlow = (rn) =>{
+      switch (rn) {
+        case 1:
+            setapplyglobal([true ,false,false,false])
+          break;
+          case 2:
+            setapplyglobal([false,true ,false,false])
+          break;
+          case 3:
+            setapplyglobal([ false,false,true,false])
+          break;
+          case 4:
+            setapplyglobal([ false,false,false ,true])
+          break;
+          default :
+           break;
+
+      }
+    }
 
     const changeGameStatus = ()=>  {
         setgamestarted(!gamestarted)
@@ -27,84 +44,43 @@ const Game = ({dangerstate})=>{
             const rn =  Math.floor(Math.random() * 4) + 1  ;
             settilearray(tilearray => [...tilearray, rn])
             play()
-            switch (rn) {
-                case 1:
-                    setapplyglobal1(true)
-                  break;
-                  case 2:
-                    setapplyglobal2(true)
-                  break;
-                  case 3:
-                    setapplyglobal3(true)
-                  break;
-                  case 4:
-                    setapplyglobal4(true)
-                  break;
-                  default :
-                  break;
-
-              }
-            
+            makeTileGlow(rn)
         }
         else
         {
             setlevel(1);
             settilearray([]);
             setcurindex(0)
-            setapplyglobal1(false)
-            setapplyglobal2(false)
-            setapplyglobal3(false)
-            setapplyglobal4(false)
+            setapplyglobal([false ,false,false,false])
         }
 
     }
-  
+    
 
     const recoredresponse = (tile)=>  {
-        play()
         if(gamestarted)
         {
+            play()
             if(tile===tilearray[curindex])
             {
                 setcurindex(index => index+1)
-                if(curindex === tilearray.length-1)
+                if(curindex === tilearray.length-1) //last tile of pattern clicked ..to generate new tile
                 {
                     setlevel(level => level+1)
                     setcurindex(0);
-
                     const rn =  Math.floor(Math.random() * 4) + 1  ;
-                    //
-                    // setTimeout(function(){ alert("Hello"); }, 5000);
                     settilearray(tilearray => [...tilearray, rn])
                     play()
-                    switch (rn) {
-                        case 1:
-                            setapplyglobal1(true)
-                          break;
-                          case 2:
-                            setapplyglobal2(true)
-                          break;
-                          case 3:
-                            setapplyglobal3(true)
-                          break;
-                          case 4:
-                            setapplyglobal4(true)
-                          break;
-                          default :
-                           break;
-        
-                      }
+                    makeTileGlow(rn)
+                   
                 }
-                else
+                else //Not last tile of pattern clicked 
                 {
-                  setapplyglobal1(false)
-                  setapplyglobal2(false)
-                  setapplyglobal3(false)
-                  setapplyglobal4(false)
+                  setapplyglobal([false ,false,false,false])
                 }
 
             }
-            else
+            else //wrong tile tapped
             {
                 if(!bestscore ||(level>bestscore) )
                 setbestscore(level)
@@ -114,32 +90,24 @@ const Game = ({dangerstate})=>{
                 setprevscore(level)
                 setdangerzone(true)
                 setgamestarted(false)
-                setmsg("game over")
-                setapplyglobal1(false)
-                setapplyglobal2(false)
-                setapplyglobal3(false)
-                setapplyglobal4(false)
+                setmsg("GAME OVER...Thanks for playing")
+                setapplyglobal([false ,false,false,false])
             }
-
-
         }
-
     }
 
-//   var className1 = !applyglobal ? "tile1" : ["tile1","tile1glow"];
-  var className1 = !applyglobal1 ? "tile1" : ["tile1" , "tile1glow"].join(' ');
-  var className2 = !applyglobal2 ? "tile2" : ["tile2" , "tile2glow"].join(' ');
-  var className3 = !applyglobal3 ? "tile3" : ["tile3" , "tile3glow"].join(' ');
-  var className4 = !applyglobal4 ? "tile4" : ["tile4" , "tile4glow"].join(' ');
-  
+    var className1 = !applyglobal[0] ? "tile1" : ["tile1" , "tile1glow"].join(' ');
+    var className2 = !applyglobal[1] ? "tile2" : ["tile2" , "tile2glow"].join(' ');
+    var className3 = !applyglobal[2] ? "tile3" : ["tile3" , "tile3glow"].join(' ');
+    var className4 = !applyglobal[3] ? "tile4" : ["tile4" , "tile4glow"].join(' ');
+
   return (
     <div  className="gamestyle" >
-        {/* <p>Game Started -  <b>{String(gamestarted)}</b>.</p> */}
-        {msg ?  <p>{msg}...Thanks for playing</p>:null}
+        {msg ?  <p>{msg}</p>:null}
         {gamestarted ? <p>Level - {level}</p>:null}
         
         <div className="first2tiles">
-            <div className={className1}onClick={() => recoredresponse(1)}></div>
+            <div type="button" className={className1}onClick={() => recoredresponse(1)}></div>
             <div className={className2} onClick={() => recoredresponse(2)}></div>
         </div>
         <div className="last2tiles">

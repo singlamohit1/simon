@@ -15,6 +15,7 @@ text-align: center;
 justify-content: center;
 }
 .tile1{
+    cursor:pointer;
 height: 100px;
 width: 100px;
 margin: 20px;
@@ -23,6 +24,7 @@ border: 10px solid #1b1b2f;
 border-radius: 20%;
 }
 .tile2{
+    cursor:pointer;
     height: 100px;
     width: 100px;
     margin: 20px;
@@ -31,6 +33,7 @@ border-radius: 20%;
     border-radius: 20%;
 }
 .tile3{
+    cursor:pointer;
     height: 100px;
     width: 100px;
     margin: 20px;
@@ -39,6 +42,7 @@ border-radius: 20%;
     border-radius: 20%;
 }
 .tile4{
+    cursor:pointer;
     height: 100px;
     width: 100px;
     margin: 20px;
@@ -70,6 +74,7 @@ border-radius: 20%;
 }
 
 .button{
+    cursor:pointer;
     padding: 0;
     margin-left: auto;
     margin-right: auto;
